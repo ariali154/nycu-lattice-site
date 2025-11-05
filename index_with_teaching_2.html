@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYCU Lattice Group — Prototype Demo (Color)</title>
+  <meta name="description" content="NYCU Lattice Group (Francis Lab) — Lattice QCD, HPC, BSM.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%235aa9e6'/><text x='50' y='58' font-size='46' text-anchor='middle' fill='white' font-family='Arial'>LQ</text></svg>">
+  <style>
+    :root{ --bg:#0a0f1a; --fg:#e6edf3; --muted:#9fb0c3; --accent:#5aa9e6; --accent2:#8a5aff; --chip:#1e2a3a; }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:linear-gradient(180deg,#0a0f1a 0%,#0f1830 60%,#0a0f1a 100%);color:var(--fg);line-height:1.6}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{position:sticky;top:0;z-index:20;background:rgba(10,15,26,.8);backdrop-filter:saturate(140%) blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{font-weight:700;letter-spacing:.2px}
+    nav a{margin-left:16px;color:var(--muted)}
+    nav a:hover{color:var(--fg)}
+    .hero{position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:-20%;background:radial-gradient(60% 60% at 70% 20%, rgba(138,90,255,.25) 0%, rgba(138,90,255,0) 60%), radial-gradient(50% 50% at 20% 80%, rgba(90,169,230,.25) 0%, rgba(90,169,230,0) 60%)}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:64px 20px}
+    .kicker{display:inline-block;background:var(--chip);color:var(--muted);padding:6px 10px;border-radius:999px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+    .h1{font-size:40px;line-height:1.15;margin:0 0 10px}
+    .sub{color:var(--muted);max-width:52ch}
+    .cta{display:inline-block;margin-top:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;padding:.7rem 1.1rem;border-radius:10px;text-decoration:none;box-shadow:0 6px 18px rgba(90,169,230,.25)}
+    .cta:hover{transform:translateY(-1px)}
+    .hero-img{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 40px rgba(0,0,0,.45)}
+    .hero-img img{width:100%;display:block}
+    .caption{font-size:12px;color:var(--muted);margin-top:6px}
+    section{padding:48px 20px}
+    h2{font-size:24px;margin:0 0 16px}
+    .chip{display:inline-block;background:var(--chip);padding:4px 10px;border-radius:999px;font-size:12px;margin-left:8px;color:var(--muted)}
+    .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px;margin:12px 0}
+    .grid{display:grid;gap:16px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}}
+    .gallery{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+    .gallery img{width:100%;height:100%;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.12)}
+    footer{background:rgba(10,15,26,.9);border-top:1px solid rgba(255,255,255,.08);padding:24px 20px;color:var(--muted)}
+    /* Teaching section small styles */
+    .year{font-weight:700;margin-top:12px;color:#cfe1ff}
+    .teach-list{margin:8px 0 0 0;padding-left:18px}</style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">NYCU Lattice Group <span class="chip">Francis Lab</span></div>
+      <nav>
+        <a data-i18n="nav.about" href="#about">About</a>
+        <a data-i18n="nav.research" href="#research">Research</a>
+        <a data-i18n="nav.news" href="#news">News</a>
+        <a data-i18n="nav.highlights" href="#highlights">Highlights</a>
+        <a data-i18n="nav.people" href="#people">People</a>
+        <a data-i18n="nav.openings" href="#openings">Openings</a>
+        <a data-i18n="nav.publications" href="#publications">Publications</a>
+        <a data-i18n="nav.teaching" href="#teaching">Teaching</a>
+        <a data-i18n="nav.contact" href="#contact">Contact</a>
+        <a id="lang-en" href="#" style="margin-left:8px">EN</a>
+        <a id="lang-zh" href="#" style="margin-left:4px">中</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <div class="kicker">Lattice QCD • HPC • BSM</div>
+        <h1 class="h1" data-i18n="title.hero">Non-perturbative physics at scale<br/><span style="color:var(--accent);" data-i18n="subtitle.hero">from heavy quarks to g-2</span></h1>
+        <p class="sub">We explore the strong interaction with modern lattice techniques and high‑performance computing, delivering predictions from doubly heavy tetraquarks to precision hadronic contributions.<br/><span style="color:var(--muted);">我們以格點方法與高效能運算研究強作用與相關現象，涵蓋雙重重味四夸克與 μ 子 g‑2 等關鍵議題。</span></p>
+        <a class="cta" href="#openings">Join Us / 加入我們</a>
+      </div>
+      <div class="hero-img">
+        <img src="https://picsum.photos/900/560?random=12" alt="HPC cluster & lattice visualization placeholder"/>
+        <div class="caption">Illustrative image — replace with group/HPC/tetraquark visual.</div>
+      </div>
+    </div>
+  </section>
+    </div>
+  </section>
+  <section id="about" class="wrap">
+    <h2>About the Group <span class="chip">研究團隊簡介</span></h2>
+    <div class="card">We are part of the NYCU Institute of Physics in Hsinchu, Taiwan. Our mission is to advance non‑perturbative quantum field theory using lattice methods and high‑performance computing, and to mentor early‑career scientists for international research careers.<br/><span style="color:var(--muted);">本團隊隸屬於國立陽明交通大學物理研究所，致力以格點方法與高效能運算推進非微擾量子場論，並培育具國際競爭力之年輕研究者。</span></div>
+  </section>
+
+  <!-- News / 公告（JSON 來源：announcements.json） -->
+  <section id="news" class="wrap">
+    <h2 data-i18n="sec.news">News / 公告</h2>
+    <div id="news-list"></div>
+  </section>
+
+  <section class="wrap">
+    <h2>Lab & Visuals <span class="chip">研究影像</span></h2>
+    <div class="gallery">
+      <img src="https://picsum.photos/900/600?random=21" alt="Compute racks placeholder"/>
+      <img src="https://picsum.photos/600/600?random=22" alt="Lattice visualization placeholder"/>
+      <img src="https://picsum.photos/600/600?random=23" alt="Team / seminar placeholder"/>
+    </div>
+  </section>
+  <section id="research" class="wrap">
+    <h2>Research Areas <span class="chip">研究領域</span></h2>
+    <div class="grid grid-3">
+      <div class="card"><strong>Lattice QCD</strong><br/>Non‑perturbative calculations with O(a) improvements.<br/><span class="chip">格點量子色動力學</span></div>
+      <div class="card"><strong>Beyond the Standard Model</strong><br/>Dark baryons, heavy quarks, heavy‑ion phenomenology.<br/><span class="chip">超越標準模型</span></div>
+      <div class="card"><strong>Methods</strong><br/>HPC, C++/MPI, Python analysis, master‑field algorithms.<br/><span class="chip">方法學</span></div>
+    </div>
+  </section>
+  <section id="highlights" class="wrap">
+    <h2>Highlights <span class="chip">重點成果</span></h2>
+    <div class="grid grid-3">
+      <div class="card"><strong>Deeply bound doubly heavy tetraquarks</strong><br/>Lattice prediction (2017) later confirmed at CERN (2019–2021).<br/><span class="chip">雙重重味四夸克預測與實驗驗證</span></div>
+      <div class="card"><strong>Muon g‑2 hadronic contributions</strong><br/>Efficient lattice strategies for precision computations.<br/><span class="chip">μ 子 g‑2 強子貢獻</span></div>
+      <div class="card"><strong>HPC‑driven QFT</strong><br/>Large‑scale simulations on national & international clusters.<br/><span class="chip">高效能運算驅動 QFT</span></div>
+    </div>
+  </section>
+  <section id="people" class="wrap">
+    <h2>People <span class="chip">成員</span></h2>
+    <div class="card"><strong>Assoc. Prof. Anthony Francis</strong> — Principal Investigator (PI)<br/>Email: <a href="mailto:afrancis@nycu.edu.tw">afrancis@nycu.edu.tw</a></div>
+  </section>
+  <section id="openings" class="wrap">
+    <h2>Open Positions <span class="chip">招募</span></h2>
+    <div class="grid grid-2">
+      <div class="card"><strong>Postdoctoral Researcher (Lattice QCD)</strong>
+        <ul>
+          <li>Experience with lattice codes (C++/Fortran, MPI).</li>
+          <li>Strong HPC/numerical analysis background.</li>
+          <li>Collaboration experience with international teams.</li>
+        </ul>
+        <a class="cta" href="#contact">Apply / 聯絡我們</a>
+      </div>
+      <div class="card"><strong>PhD Student / Graduate Researcher</strong>
+        <ul>
+          <li>Physics background; C++/Python programming.</li>
+          <li>Interest in non‑perturbative QFT and large‑scale simulations.</li>
+          <li>Motivated to learn lattice methods and HPC tools.</li>
+        </ul>
+        <a class="cta" href="#contact">Apply / 聯絡我們</a>
+      </div>
+    </div>
+  </section>
+  <section id="publications" class="wrap">
+    <h2 data-i18n="sec.pubs">Selected Publications <span class="chip">代表性論文</span></h2>
+    <div id="pub-list" class="card" style="display:none"></div>
+    <div id="pub-fallback" class="card"><ul>
+      <li>Francis et al., <em>Phys. Rev. Lett.</em> 118, 142001 (2017) — Lattice Prediction for Deeply Bound Doubly Heavy Tetraquarks.</li>
+      <li>Francis et al., <em>Comput. Phys. Comm.</em> 255 (2020) — Master-field simulations of O(a) improved lattice QCD.</li>
+      <li>Della Morte, Francis et al., <em>JHEP</em> 10 (2017) — Hadronic vacuum polarization to muon g-2 from lattice QCD.</li>
+    </ul></div>
+  </section>
+
+  <section id="teaching" class="wrap">
+    <h2>Teaching <span class="chip">課程</span></h2>
+    <style>
+      /* simple styling for seminar blocks */
+      details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;margin:6px 0}
+      details summary{cursor:pointer;color:#cfe1ff;font-weight:600}
+      .year{font-weight:700;margin-top:16px;color:#cfe1ff}
+      .teach-list{margin:8px 0 8px 0;padding-left:18px}
+    </style>
+    <div class="card">
+      <div class="year">114 學年度</div>
+      <ul class="teach-list">
+        <li>電動力學(一) — 上 / Electromagnetism (I) — Fall</li>
+        <li>格子規範理論簡介(二)：費米子 — 上 / Intro to Lattice Gauge Theory (II): Fermions — Fall</li>
+        <li>地球氣候物理學 — 上 / Physics of Earth Climate — Fall</li>
+      </ul>
+      <details>
+        <summary>Seminars / 書報討論</summary>
+        <ul class="teach-list">
+          <li>（此學年度的 Seminar 項目待補／請提供清單）</li>
+        </ul>
+      </details>
+
+      <div class="year">113 學年度</div>
+      <ul class="teach-list">
+        <li>電動力學(一) — 上 / Electromagnetism (I) — Fall</li>
+        <li>格子規範理論簡介(二)：費米子 — 上 / Intro to Lattice Gauge Theory (II): Fermions — Fall</li>
+        <li>粒子物理(一) — 下 / Particle Physics (I) — Spring</li>
+        <li>格子規範理論簡介(一)：標量與純規範理論 — 下 / Intro to Lattice Gauge Theory (I): Scalars & Pure Gauge — Spring</li>
+      </ul>
+      <details>
+        <summary>Seminars / 書報討論</summary>
+        <ul class="teach-list">
+          <li>（此學年度的 Seminar 項目待補／請提供清單）</li>
+        </ul>
+      </details>
+
+      <div class="year">112 學年度</div>
+      <ul class="teach-list">
+        <li>電動力學(一) — 上 / Electromagnetism (I) — Fall</li>
+        <li>粒子物理(一) — 下 / Particle Physics (I) — Spring</li>
+      </ul>
+      <details>
+        <summary>Seminars / 書報討論</summary>
+        <ul class="teach-list">
+          <li>（此學年度的 Seminar 項目待補／請提供清單）</li>
+        </ul>
+      </details>
+
+      <div class="year">111 學年度</div>
+      <ul class="teach-list">
+        <li>電動力學(一) — 上 / Electromagnetism (I) — Fall</li>
+        <li>粒子物理(一) — 下 / Particle Physics (I) — Spring</li>
+      </ul>
+      <details>
+        <summary>Seminars / 書報討論</summary>
+        <ul class="teach-list">
+          <li>（此學年度的 Seminar 項目待補／請提供清單）</li>
+        </ul>
+      </details>
+
+      <div class="year">110 學年度</div>
+      <ul class="teach-list">
+        <li>粒子物理(一) — 下 / Particle Physics (I) — Spring</li>
+      </ul>
+      <details>
+        <summary>Seminars / 書報討論</summary>
+        <ul class="teach-list">
+          <li>（此學年度的 Seminar 項目待補／請提供清單）</li>
+        </ul>
+      </details>
+
+      <p style="color:var(--muted);margin-top:14px;font-size:13px">（講授課程與當年度 Seminar 併列；Seminar 清單可隨時補充。）</p>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap">
+    <h2>Contact <span class="chip">聯絡我們</span></h2>
+    <div class="card">Email: <a href="mailto:afrancis@nycu.edu.tw">afrancis@nycu.edu.tw</a><br/>Location: Science Building III 4F‑456, NYCU Guangfu Campus, Hsinchu</div>
+  </section>
+  <footer>
+    <div class="wrap">© 2025 NYCU Lattice Group — Francis Lab</div>
+  </footer>
+
+<!-- ===== Scripts: i18n + News + Publications + AI Summaries ===== -->
+<script>
+// ---- i18n ----
+const I18N_KEYS = [
+  'nav.about','nav.research','nav.news','nav.highlights','nav.people','nav.openings','nav.publications','nav.teaching','nav.contact',
+  'title.hero','subtitle.hero','sec.news','sec.pubs'
+];
+async function setLang(lang){
+  try{
+    localStorage.setItem('lang', lang);
+    const dict = await (await fetch(`i18n/${lang}.json?_=`+Date.now())).json();
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k = el.getAttribute('data-i18n');
+      if(dict[k]) el.textContent = dict[k];
+    });
+    if(window.renderNews) renderNews(lang);
+  }catch(e){ /* ignore if files missing */ }
+}
+const langInit = localStorage.getItem('lang') || 'en';
+addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('lang-en').onclick = (e)=>{e.preventDefault();setLang('en');};
+  document.getElementById('lang-zh').onclick = (e)=>{e.preventDefault();setLang('zh');};
+  setLang(langInit);
+});
+
+// ---- News from announcements.json ----
+async function renderNews(lang = localStorage.getItem('lang') || 'en'){
+  const box = document.getElementById('news-list');
+  if(!box) return;
+  try{
+    const res = await fetch('announcements.json?_='+Date.now());
+    const items = await res.json();
+    box.innerHTML = items.sort((a,b)=>b.date.localeCompare(a.date)).map(it=>`
+      <div class='card'>
+        <div style='font-size:12px;color:#9fb0c3'>${it.date}</div>
+        <strong>${lang==='zh'?it.title_zh:it.title_en}</strong>
+        <p>${lang==='zh'?it.body_zh:it.body_en}</p>
+        ${it.link?`<a class='cta' href='${it.link}'>More</a>`:''}
+      </div>`).join('');
+  }catch(e){ box.innerHTML = "<div class='card'>No announcements yet.</div>"; }
+}
+renderNews();
+
+// ---- Publications from publications.json (fallback to static list) ----
+(async function(){
+  const list = document.getElementById('pub-list');
+  const fallback = document.getElementById('pub-fallback');
+  try{
+    const res = await fetch('publications.json?_='+Date.now());
+    if(!res.ok) throw 0;
+    const pubs = await res.json();
+    const byYear = pubs.reduce((m,p)=>((m[p.year]=m[p.year]||[]).push(p),m),{});
+    const years = Object.keys(byYear).sort((a,b)=>b-a);
+    list.innerHTML = years.map(y=>`<h3>${y}</h3><ul>`+
+      byYear[y].map(p=>`<li><a href='${p.url||'#'}' target='_blank'>${p.title}</a> — ${p.authors} <em>${p.venue||''}</em></li>`).join('')+
+      `</ul>`).join('');
+    list.style.display = 'block';
+    fallback.style.display = 'none';
+  }catch(e){ /* keep fallback */ }
+})();
+</script>
+</body>
+</html>
